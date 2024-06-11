@@ -11,6 +11,12 @@ const Counter = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   const numberInputRef = useRef();
+  const [defaultValue, setDefaultValue] = useState("");
+
+  const handleSetCustom = () => {
+    dispatch(setCustom(Number(numberInputRef.current.value)));
+    setDefaultValue("");
+  };
 
   return (
     <div className="max-w-md w-full rounded-lg shadow-lg flex flex-col max-sm:shadow-xl max-sm:mx-2">
@@ -28,12 +34,12 @@ const Counter = () => {
           name="numberInput"
           className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full/2 rounded-md sm:text-sm focus:ring-1"
           placeholder="Enter the number"
+          value={defaultValue}
+          onChange={(e) => setDefaultValue(e.target.value)}
         />
         <button
-          onClick={() =>
-            dispatch(setCustom(numberInputRef.current.value)) &&
-            (numberInputRef.current.value = "")
-          }
+          disabled={defaultValue === ""}
+          onClick={handleSetCustom}
           className="w-28 h-10 max-sm:w-24 max-sm:text-sm  bg-purple-600 text-white rounded-md"
         >
           Set Number
