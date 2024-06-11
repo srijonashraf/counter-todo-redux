@@ -5,7 +5,7 @@ import TodoPage from "./pages/TodoPage";
 const App = () => {
   return (
     <div>
-      <CounterPage />
+      {/* <CounterPage /> */}
       <TodoPage />
     </div>
   );
