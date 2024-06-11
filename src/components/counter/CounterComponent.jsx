@@ -13,12 +13,12 @@ const Counter = () => {
   const numberInputRef = useRef();
 
   return (
-    <div className="max-w-md w-full rounded-lg shadow-lg flex flex-col max-sm:mx-3 max-sm:shadow-xl">
-      <div className="p-3 rounded-t-lg bg-slate-500">
+    <div className="max-w-md w-full rounded-lg shadow-lg flex flex-col max-sm:shadow-xl max-sm:mx-2">
+      <div className="p-3 max-sm:p-5 rounded-t-lg bg-slate-500">
         <p className="text-2xl font-bold text-white">Counter App</p>
       </div>
       <div className="flex items-center justify-center h-36">
-        <p className="text-6xl">{count}</p>
+        <p className="text-6xl max-sm:text-7xl">{count}</p>
       </div>
       <div className="form-group flex items-center justify-center mb-5 gap-4">
         <input
@@ -34,27 +34,27 @@ const Counter = () => {
             dispatch(setCustom(numberInputRef.current.value)) &&
             (numberInputRef.current.value = "")
           }
-          className="px-2 py-2 w-28 bg-purple-600 text-white rounded-md"
+          className="w-28 h-10 max-sm:w-24 max-sm:text-sm  bg-purple-600 text-white rounded-md"
         >
           Set Number
         </button>
       </div>
-      <div className="flex justify-center gap-4 mb-8">
+      <div className="flex justify-center gap-4 mb-8 max-sm:gap-2 max-sm:mb-6">
         <button
           onClick={() => dispatch(increment())}
-          className="px-2 py-2 w-28 bg-emerald-500 text-white rounded-md"
+          className="w-28 h-10 max-sm:w-20 max-sm:text-sm bg-emerald-500 text-white rounded-md"
         >
           Increase
         </button>
         <button
           onClick={() => dispatch(decrement())}
-          className="px-2 py-2 w-28 bg-slate-600 text-white rounded-md"
+          className="w-28 h-10 max-sm:w-20 max-sm:text-sm bg-slate-600 text-white rounded-md"
         >
           Decrease
         </button>
         <button
           onClick={() => dispatch(reset())}
-          className="px-2 py-2 w-28 bg-pink-600 text-white rounded-md"
+          className="w-28 h-10 max-sm:w-20 max-sm:text-sm bg-pink-600 text-white rounded-md"
         >
           Reset
         </button>
