@@ -13,6 +13,7 @@ const todoSlice = createSlice({
     updateTodo: (state, action) => {
       const { index, newItem } = action.payload;
       state.value.splice(index, 1, newItem);
+      state.editItem = null;
     },
     removeTodo: (state, action) => {
       state.value.splice(action.payload, 1);
