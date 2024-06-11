@@ -28,8 +28,8 @@ const CreateTodo = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="p-5 sm:p-3 rounded-t-lg bg-slate-600">
+    <div className="flex flex-col max-sm:mx-2">
+      <div className="p-5 sm:p-4 rounded-t-lg bg-slate-600">
         <p className="text-3xl sm:text-2xl font-bold text-white">ToDo App</p>
       </div>
       <div className="input-group flex flex-col gap-5 m-5">

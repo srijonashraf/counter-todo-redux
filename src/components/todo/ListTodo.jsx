@@ -7,7 +7,7 @@ const ListTodo = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="p-5 overflow-auto">
+    <div className="p-5 overflow-auto max-sm:mx-2">
       <h1 className="text-center font-bold text-3xl mb-3">Todo Lists</h1>
       <table className="table-fixed w-full text-sm text-left text-gray-600">
         <thead className="text-xs text-gray-800 uppercase bg-gray-400">
