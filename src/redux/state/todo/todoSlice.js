@@ -27,3 +27,5 @@ const todoSlice = createSlice({
 export const { createTodo, removeTodo, setEditItem, updateTodo } =
   todoSlice.actions;
 export default todoSlice.reducer;
+
+/*ToDoSlice Only for Redux (no persistence)*/

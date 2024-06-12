@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTodo, updateTodo } from "../../redux/state/todo/todoSlice";
+import {
+  createTodo,
+  updateTodo,
+} from "../../redux/state/todo/todoSliceLocalStorage";
 
 const CreateTodo = () => {
   const [formValue, setFormValue] = useState({
@@ -8,18 +11,26 @@ const CreateTodo = () => {
     description: "",
   });
 
-  const editItem = useSelector((state) => state.todo.editItem);
+  const editItem = useSelector((state) => state.totoLocalStorage.editItem);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    editItem && setFormValue(editItem.item);
+    if (editItem) {
+      setFormValue(editItem.item.value);
+    }
   }, [editItem]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formValue.title && formValue.description) {
       if (editItem) {
-        dispatch(updateTodo({ index: editItem.index, newItem: formValue }));
+        dispatch(
+          updateTodo({
+            index: editItem.index,
+            localStorageIndex: editItem.localStorageIndex,
+            newItem: formValue,
+          })
+        );
       } else {
         dispatch(createTodo(formValue));
       }
