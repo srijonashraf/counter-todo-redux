@@ -12,12 +12,30 @@ const ListTodo = () => {
   const dispatch = useDispatch();
 
   const fetchLocalStorageData = () => {
-    const array = Object.keys(localStorage)
-      .filter((key) => key !== "debug" && key !== "undefined")
-      .sort((a, b) => parseInt(a) - parseInt(b))
+    //Sanitize localStorage and ensure desired format
+    const keys = Object.keys(localStorage).filter((key) => !isNaN(Number(key)));
+    const array = keys
+      .sort((a, b) => a - b)
       .map((key) => {
-        return { key, value: JSON.parse(localStorage.getItem(key)) };
-      });
+        const value = JSON.parse(localStorage.getItem(key));
+        const valueKeys = Object.keys(value);
+
+        const hasDesiredFormat =
+          valueKeys.length === 2 &&
+          valueKeys.includes("title") &&
+          valueKeys.includes("description");
+
+        if (hasDesiredFormat) {
+          return {
+            key,
+            value: value,
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+    //Filter null elements
+
     setLocalStorageArray(array);
   };
 
@@ -34,25 +52,25 @@ const ListTodo = () => {
           <tr>
             <th
               scope="col"
-              class="px-6 py-3 border border-gray-300 w-10 text-center"
+              className="px-6 py-3 border border-gray-300 w-10 text-center"
             >
               #
             </th>
             <th
               scope="col"
-              class="px-6 py-3 border border-gray-300 text-center"
+              className="px-6 py-3 border border-gray-300 text-center"
             >
               Task Name
             </th>
             <th
               scope="col"
-              class="px-1 sm:px-6 py-3 border border-gray-300 text-center"
+              className="px-1 sm:px-6 py-3 border border-gray-300 text-center"
             >
               Task Description
             </th>
             <th
               scope="col"
-              class="px-6 py-3 border border-gray-300 text-center"
+              className="px-6 py-3 border border-gray-300 text-center"
             >
               Action
             </th>
@@ -62,7 +80,7 @@ const ListTodo = () => {
           {localStorageArray.map((item, i) => {
             return (
               <tr
-                key={i.toString()}
+                key={item.key.toString()}
                 className="bg-gray-50 border-b border-gray-300"
               >
                 <td className=" border-gray-300 px-4 py-2 break-words">{i}</td>
@@ -78,7 +96,7 @@ const ListTodo = () => {
                       onClick={() =>
                         dispatch(
                           setEditItem({
-                            index: i,
+                            index: item.key,
                             localStorageIndex: item.key,
                             item,
                           })
@@ -93,7 +111,7 @@ const ListTodo = () => {
                         window.confirm("Are you sure you want to delete?") &&
                           dispatch(
                             removeTodo({
-                              index: i,
+                              index: item.key,
                               localStorageIndex: item.key,
                             })
                           );
